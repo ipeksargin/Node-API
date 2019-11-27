@@ -1,5 +1,8 @@
 const router  = require('express').Router();
 const express = require('express');
+const Product = require('../model/product');
+const mongoose = require('mongoose');
+
 
 router.get('/', (req,res,next) => { //app.jsde productRoute yaptın /products yazmana gerek yok
     res.status(200).json({
@@ -9,16 +12,17 @@ router.get('/', (req,res,next) => { //app.jsde productRoute yaptın /products ya
 
 router.get('/:productId', (req,res,next) => {
     const id = req.params.productId;
-    if (id === 'special'){
-        res.status(200).json({
-            message: 'Message with special id',
-            id: id
-        });
-    }else {
-        res.status(200).json({
-            message: 'Wrong id!'
-        });
-    }  
+
+    Product.findById(id)
+    .exec()
+    .then(doc => {
+        console.log(doc);
+        res.status(200).json(doc);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    });
 });
 
 router.patch('/:productId', (req,res,next) => {
@@ -34,10 +38,17 @@ router.delete('/:productId', (req,res,next) => {
 });
 
 router.post('/', (req,res,next) => {
-    const product = {
+    const product = new Product({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
-    };
+    });
+    product
+        .save()
+        .then(result =>
+            {console.log(result);
+            })
+        .catch(err => console.log(err));
     res.status(201).json({
         message: 'handling products post request',
         createdProduct: product

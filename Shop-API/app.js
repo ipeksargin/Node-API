@@ -33,7 +33,7 @@ app.use((req,res,next) => {
 
 app.use('/products', productRoute);
 app.use('/orders', ordersRoute);
-
+app.use('/uploads', express.static('uploads'));
 app.use((req, res, next) => {
     const error = new Error('Not found!');
     error.status = 404;

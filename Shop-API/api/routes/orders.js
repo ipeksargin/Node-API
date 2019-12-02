@@ -7,6 +7,7 @@ const Product = require('../model/product');
 router.get('/', (req, res, next) => {
     Order.find()
     .select('quantity product _id')
+    .populate('product', 'name') //diğer bir modül olarak product olduğu için product yazdık. product içinden sadece name almak istediği için ikinci parameter olarak name verdik
     .exec().then(docs => {
         const response = {
             count: docs.length,
@@ -41,11 +42,11 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     Product.findById(req.body.productId).exec()
     .then(product => {
-        if(!product) {
-            return res.status(404).json({
-                message: 'Product not found',
-            })
-        }
+        // if(!product) {
+        //     res.status(404).json({
+        //         message: 'Product not found',
+        //     })
+        // }
         const order = new Order ({
             _id: mongoose.Types.ObjectId(),
             quantity: req.body.quantity,
@@ -70,13 +71,13 @@ router.post('/', (req, res, next) => {
         })
         .catch(err => {
             res.status(500).json({
-                message: 'product hasnt found',
-                error:err
+                message: 'product hasnt found in the database',
             });
         });
 });
 router.get('/:orderId', (req, res, next) => {
-    Order.findById(req.params.orderId).exec().then(order => {
+    Order.findById(req.params.orderId)
+    .populate('product').exec().then(order => {
         if(!order) {
             res.status(404).json({
                 message: 'order not found'

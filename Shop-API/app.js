@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const productRoute = require('./api/routes/products');
 const ordersRoute = require('./api/routes/orders');
+const usersRoute = require('./api/routes/users');
+
 
 mongoose.connect('mongodb+srv://db_admin:98sNMmM6o0d3cTiJ@cluster0-hlfkl.mongodb.net/test?retryWrites=true&w=majority',
 { useUnifiedTopology: true,
@@ -33,6 +35,8 @@ app.use((req,res,next) => {
 
 app.use('/products', productRoute);
 app.use('/orders', ordersRoute);
+app.use('/users', usersRoute);
+
 app.use('/uploads', express.static('uploads'));
 app.use((req, res, next) => {
     const error = new Error('Not found!');

@@ -45,11 +45,11 @@ router.post('/login', (req,res,next) => {
     User.find({email:req.body.email}).exec()
     .then(user => {
         if(user.length < 1){
-            res.status(401).json({message:"Auth failed"});
+            res.status(404).json({message:"Auth failed"});
         }
         bcrypt.compare(req.body.password, user[0].password, (err,result)=> {
             if(err){
-                return res.status(401).json({message:"Auth failed"});
+                return res.status(401).json({message:"Auth failedddd"});
             }if(result){
                 const token = jwt.sign({
                     email:user[0].email,

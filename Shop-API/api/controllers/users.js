@@ -4,6 +4,7 @@ const jwt =  require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
+
 exports.user_signup = (req,res,next)=> {
     User.find({email:req.body.email}).exec().then(user => {
         if(user.length >= 1){

@@ -1,0 +1,47 @@
+<html>
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+</head>
+<body>    
+    <h2>Shop API</h2>
+    <div id="homepage">
+        <h2>No excuses for losing the way</h2>
+        <div id="mydiv">
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script src="https://unpkg.com/react@15.6.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.6.2/dist/react-dom.min.js"></script>
+
+    <script type="text/babel">
+        var ninja = React.createClass({
+        render: function (){
+            return (
+                <div id="container">
+                    <form id="search" onSubmit={this.handleSubmit}>
+                        <label> Enter </label>
+                        <input type="text" ref="one" required />
+                        <label> Enter </label>
+                        <input type="text" ref="two" required />
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+            );
+        },
+        handleSubmit:function(e){
+            e.preventDefault();
+            var one = this.refs.one.value;
+            var two = this.refs.two.value;
+
+            fetch('products/');
+
+        }
+    })
+    </script>
+</body>
+</html>

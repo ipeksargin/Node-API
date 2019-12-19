@@ -16,10 +16,12 @@ mongoose.connect('mongodb+srv://db_admin:98sNMmM6o0d3cTiJ@cluster0-hlfkl.mongodb
     console.log(Error, err.message);
     });
 
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+app.use(express.static('public'));
 app.use((req,res,next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-header', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');

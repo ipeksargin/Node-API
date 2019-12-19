@@ -26,5 +26,5 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute); 
 
-app.listen(3000, () => console.log(`Server Running at port 3000`));
+app.listen(4000, () => console.log(`Server Running at port 4000`));
 
